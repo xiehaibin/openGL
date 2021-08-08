@@ -1,54 +1,69 @@
 ﻿#include <windows.h>
-#include <gl/GL.h>
 #include <math.h>
 #include <corecrt_math_defines.h>
 
 #include "GLContext.h"
 
+
+#include "Lesson01.h"
+#include "Lesson02.h"
+
+#include "Lesson03.h"
+#include "Lesson03_minMap.h"
+#include "Lesson03_TexUpdate.h"
+#include "Lesson03_TexAnim.h"
+#include "Lesson03_CompressTex.h"
+#include "Lesson03_EnvironmentTex.h"
+#include "Lesson03_FrameAnim.h"
+#include "Lesson03_Sprite.h"
+#include "Lesson03_Blend.h"
+
+#include "Lesson04_1_DisplayList.h"
+#include "Lesson04_2_VBO.h"
+#include "Lesson04_3_IBO.h"
+#include "Lesson04_4_PBuffer.h"
+#include "Lesson04_5_FBO.h"
+#include "Lesson04_6_PBO.h"
+#include "Lesson04_6_PBO_1.h"
+#include "Lesson04_6_PBO_2.h"
+#include "Lesson04_6_PBO_UNPACK.h"
+#include "Lesson04_6_12.h"
+
 // 全局变量:
 HINSTANCE   hInst;
-
 GLContext   glContext;
 
 DWORD dwNow = 0;
 DWORD dwPre = 0;
 DWORD dwFps = 60;
 
-unsigned int unWidth  = 640;
-unsigned int unHeight = 480;
+extern unsigned int unWidth  = 640;
+extern unsigned int unHeight = 480;
 
-struct Vertex
-{
-	float x;
-	float y;
-	float z;
 
-public :
-	Vertex()
-	{
-		x = 0.0f;
-		y = 0.0f;
-		z = 0.0f;
-	}
-};
+Lesson01 lesson01;
+Lesson02 lesson02;
 
-struct float3
-{
-	float x;
-	float y;
-	float z;
-};
+Lesson03                lesson03;
+Lesson03_minMap         lesson03MinMap;
+Lesson03_TexUpdate      lesson03_TexUpdate;
+Lesson03_TexAnim        lesson03_TexAnim;
+Lesson03_CompressTex    lesson03_CompressTex;
+Lesson03_EnvironmentTex lesson03_EnvironmentTex;
+Lesson03_FrameAnim      lesson03_FrameAnim;
+Lesson03_Sprite         lesson03_Sprite;
+Lesson03_Blend          lesson03_Blend;
 
-struct VertexC
-{
-	float x;
-	float y;
-	float z;
-
-	float r;
-	float g;
-	float b;
-};
+Lesson04_1_DisplayList  lesson04_1_DisplayList;
+Lesson04_2_VBO          lesson04_2_VBO;
+Lesson04_3_IBO          lesson04_3_IBO;
+Lesson04_4_PBuffer      lesson04_4_PBuffer;
+Lesson04_5_FBO          lesson04_5_FBO;
+Lesson04_6_PBO          lesson04_6_PBO;
+Lesson04_6_PBO_1        lesson04_6_PBO_1;
+Lesson04_6_PBO_2        lesson04_6_PBO_2;
+Lesson04_6_PBO_UNPACK   lesson04_6_PBO_UNPACK;
+Lesson04_6_12           lesson04_6_12;
 
 
 // 此代码模块中包含的函数的前向声明:
@@ -57,157 +72,16 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 
 void                MainRender();
 
-void Render()
-{
-	// 指定以下操作针对投影矩阵
-	glMatrixMode(GL_PROJECTION);
-	// 将投影矩阵清空成单位矩阵
-	glLoadIdentity();
-	// 正交矩阵
-	glOrtho(0, unWidth, unHeight, 0, -100, 100);
-
-	//==================================================
-	// 指定绘制模式“画线”
-	glColor3f(0.0, 1.0, 0.0);
-	glBegin(GL_LINES);
-		glVertex3f(0, 0, 0);
-		glVertex3f(100, 100, 0);
-	glEnd(); // 结束画线
-	//===================================================
-
-
-	//===================================================
-	//三角形
-	glColor3f(1.0, 0.0, 0.0);
-	glBegin(GL_TRIANGLES);
-		glVertex3f(unWidth*0.5, 0, 0);
-		glVertex3f(unWidth*0.5 - 50, 100, 0);
-		glVertex3f(unWidth*0.5 + 50, 100, 0);
-	glEnd();
-
-	// 三角形带
-	float3 circle2[4] = {
-		{0.0f,   100.0f, 0.0f},
-		{100.0f, 100.0f, 0.0f},
-		{0.0f,   200.0f, 0.0f},
-		{100.0f, 200.0f, 0.0f}
-	};
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, sizeof(float3), circle2);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);  // 减少顶点传递量
-
-	// 三角形颜色
-	VertexC v[4] = {
-		{0.0f,   200.0f, 0.0f,  1.0f, 0.0f, 0.0f},
-		{100.0f, 200.0f, 0.0f,  0.0f, 1.0f, 0.0f},
-		{0.0f,   300.0f, 0.0f,  0.0f, 0.0f, 1.0f},
-		{100.0f, 300.0f, 0.0f,  0.0f, 1.0f, 1.0f},
-	};
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glVertexPointer(3, GL_FLOAT, sizeof(VertexC), v);
-	glColorPointer(3, GL_FLOAT, sizeof(VertexC), &v[0].r);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);  
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-	//===================================================
-
-
-	//===================================================
-	// 圆
-	glColor3f(1.0, 0, 0);
-	float nCenterPointX = unWidth * 0.5f;
-	float nCenterPointY = unHeight * 0.5f;
-	float radius = 50.0f;
-	const int step = 10;
-	//glBegin glEnd 比较原始旧 效率低  1.0版本 高版本已抛弃
-	glBegin(GL_TRIANGLES);
-		for (int i = 0; i < 360; i += step)
-		{
-			float   rad = (double)i*(M_PI/180.0f); // pi的精度要够
-			float x = radius * cos(rad) + nCenterPointX;
-			float y = radius * sin(rad) + nCenterPointY;
-
-			rad = ((double)i + step)*(M_PI/180.0f);
-			float x1 = radius * cos(rad) + nCenterPointX;
-			float y1 = radius * sin(rad) + nCenterPointY;
-
-			glVertex3f(nCenterPointX, nCenterPointY, 0);
-			glVertex3f(x, y, 0);
-			glVertex3f(x1, y1, 0);
-		}
-	glEnd();
-
-	//优化1
-	glColor3f(0, 0, 1.0);
-	Vertex circle[36*3] = {};
-	nCenterPointX = unWidth * 0.5f + 100;
-	nCenterPointY = unHeight * 0.5f;
-	int nIndex = 0;
-	for (int i = 0; i < 360; i += step)
-	{
-		circle[nIndex].x = nCenterPointX;
-		circle[nIndex].y = nCenterPointY;
-		circle[nIndex].z = 0;
-
-		float   rad = (double)i*(M_PI/180.0f);
-		circle[nIndex+1].x = radius * cos(rad) + nCenterPointX;
-		circle[nIndex+1].y = radius * sin(rad) + nCenterPointY;
-		circle[nIndex+1].z = 0;
-
-		rad = ((double)i + step)*(M_PI/180.0f);
-		circle[nIndex+2].x = radius * cos(rad) + nCenterPointX;
-		circle[nIndex+2].y = radius * sin(rad) + nCenterPointY;
-		circle[nIndex+2].z = 0;
-
-		nIndex += 3;
-	}
-	// 启用顶点数组模式
-	glEnableClientState(GL_VERTEX_ARRAY);
-	//0为偏移  3*GL_FLOAT/sizeof(Vertex)
-	glVertexPointer(3, GL_FLOAT, sizeof(Vertex)/*0*/, circle); // 顶点一批传递给显卡或openGL,减小压栈
-	glDrawArrays(GL_TRIANGLES, 0, 36*3);     // 绘制
-
-	//优化2
-	glColor3f(0, 1.0, 1.0);
-	Vertex circle1[38] = {};
-	nCenterPointX = unWidth * 0.5f - 100;
-	nCenterPointY = unHeight * 0.5f;
-	nIndex = 0;
-	circle1[nIndex].x = nCenterPointX;
-	circle1[nIndex].y = nCenterPointY;
-	circle1[nIndex].z = 0;
-	for (int i = 0; i <= 360; i += step)
-	{
-		nIndex += 1;
-		float   rad = (double)i*(M_PI/180.0f);
-		circle1[nIndex].x = radius * cos(rad) + nCenterPointX;
-		circle1[nIndex].y = radius * sin(rad) + nCenterPointY;
-		circle1[nIndex].z = 0;
-	}
-	// 启用顶点数组模式
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, sizeof(Vertex), circle1); 
-	//三角形扇
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 38);  // 减少顶点传递量 2/3
-	//===================================================
-
-	//===================================================
-	//===================================================
-
-	//===================================================
-	//===================================================
-}
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-                     _In_opt_ HINSTANCE hPrevInstance,
-                     _In_ LPWSTR    lpCmdLine,
-                     _In_ int       nCmdShow)
+	_In_opt_ HINSTANCE hPrevInstance,
+	_In_ LPWSTR    lpCmdLine,
+	_In_ int       nCmdShow)
 {
-    UNREFERENCED_PARAMETER(hPrevInstance);
-    UNREFERENCED_PARAMETER(lpCmdLine);
+	UNREFERENCED_PARAMETER(hPrevInstance);
+	UNREFERENCED_PARAMETER(lpCmdLine);
 
-    MyRegisterClass(hInstance);
+	MyRegisterClass(hInstance);
 
 	HWND hWnd = CreateWindowW(L"OpenGL基础", L"OpenGL基础", WS_OVERLAPPEDWINDOW, 0, 0, unWidth, unHeight, nullptr, nullptr, hInstance, nullptr);
 	if (!hWnd)
@@ -217,7 +91,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
 
-
 	if (!glContext.init(hWnd, GetDC(hWnd)))
 	{
 		return FALSE;
@@ -226,8 +99,30 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// 绘制区域
 	RECT rect;
 	GetClientRect(hWnd, &rect);
-	unWidth  = rect.right - rect.left;
+	unWidth = rect.right - rect.left;
 	unHeight = rect.bottom - rect.top;
+
+	//lesson03.initGL();
+	//lesson03MinMap.initGL();
+	//lesson03_TexUpdate.initGL();
+	//lesson03_TexAnim.initGL();
+	//lesson03_CompressTex.initGL();
+	//lesson03_EnvironmentTex.initGL();
+	//lesson03_FrameAnim.initGL();
+	//lesson03_Sprite.initGL();
+	//lesson03_Blend.initGL();
+
+	//lesson04_1_DisplayList.initGL();
+	//lesson04_2_VBO.initGL();
+	//lesson04_3_IBO.initGL();
+	//lesson04_4_PBuffer.initGL(glContext, hWnd, GetDC(hWnd), glContext.m_hRc, unWidth, unHeight);
+	//lesson04_5_FBO.initGL();
+	//lesson04_6_PBO.initGL();
+	//lesson04_6_PBO_1.initGL();
+	//lesson04_6_PBO_2.initGL();
+	//lesson04_6_PBO_UNPACK.initGL();
+	lesson04_6_12.initGL();
+
 
     MSG msg;
 	memset(&msg, 0, sizeof(msg));
@@ -242,8 +137,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		else
 		{
 			dwNow = GetTickCount();
-			if (dwNow - dwPre >= dwInterval)
+			if ((dwNow - dwPre) >= dwInterval)
 			{
+				dwPre = dwNow;
 				MainRender();
 			}
 			else
@@ -254,6 +150,27 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 	}
 
+	//lesson03.onDisable();
+	//lesson03MinMap.onDisable();
+	//lesson03_TexUpdate.onDisable();
+	//lesson03_TexAnim.onDisable();
+	//lesson03_CompressTex.onDisable();
+	//lesson03_EnvironmentTex.onDisable();
+	//lesson03_FrameAnim.onDisable();
+	//lesson03_Sprite.onDisable();
+	//lesson03_Blend.onDisable();
+
+	//lesson04_1_DisplayList.onDisable();
+	//lesson04_2_VBO.onDisable();
+	//lesson04_3_IBO.onDisable();
+	//lesson04_4_PBuffer.onDisable();
+	//lesson04_5_FBO.onDisable();
+	//lesson04_6_PBO.onDisable();
+	//lesson04_6_PBO_1.onDisable();
+	//lesson04_6_PBO_2.onDisable();
+	//lesson04_6_PBO_UNPACK.onDisable();
+	lesson04_6_12.onDisable();
+
 	glContext.destroy();
 
     return (int) msg.wParam;
@@ -262,14 +179,42 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 0,0   1,0
 0,1   1,1
 */
+
+/*
+纹理坐标
+0,1  1,1
+0,0  1,0
+*/
 void MainRender()
 {
 	glClearColor(0,0,0,1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //清除颜色缓冲和深度缓冲区
+	glClear(GL_STENCIL_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //清除 模板颜缓冲 色缓冲 和 深度缓冲区
 	// 定义视口
 	glViewport(0, 0, unWidth, unHeight);
 
-	Render();
+	//lesson01.Render();
+	//lesson02.Render();
+
+	//lesson03.render();
+	//lesson03MinMap.render();
+	//lesson03_TexUpdate.render();
+	//lesson03_TexAnim.render();
+	//lesson03_CompressTex.render();
+	//lesson03_EnvironmentTex.render();
+	//lesson03_FrameAnim.render();
+	//lesson03_Sprite.render();
+	//lesson03_Blend.render();
+
+	//lesson04_1_DisplayList.render();
+	//lesson04_2_VBO.render();
+	//lesson04_3_IBO.render();
+	//lesson04_4_PBuffer.render();
+	//lesson04_5_FBO.render();
+	//lesson04_6_PBO.render();
+	//lesson04_6_PBO_1.render();
+	//lesson04_6_PBO_2.render();
+	//lesson04_6_PBO_UNPACK.render();
+	lesson04_6_12.render();
 
 	glContext.swapBuffer();
 }

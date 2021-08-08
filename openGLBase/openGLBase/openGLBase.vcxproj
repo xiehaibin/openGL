@@ -91,11 +91,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenGL32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -152,10 +154,59 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Lesson01.cpp" />
+    <ClCompile Include="Lesson02.cpp" />
+    <ClCompile Include="Lesson03.cpp" />
+    <ClCompile Include="Lesson03_Blend.cpp" />
+    <ClCompile Include="Lesson03_CompressTex.cpp" />
+    <ClCompile Include="Lesson03_EnvironmentTex.cpp" />
+    <ClCompile Include="Lesson03_FrameAnim.cpp" />
+    <ClCompile Include="Lesson03_minMap.cpp" />
+    <ClCompile Include="Lesson03_Sprite.cpp" />
+    <ClCompile Include="Lesson03_TexAnim.cpp" />
+    <ClCompile Include="Lesson03_TexUpdate.cpp" />
+    <ClCompile Include="Lesson04_1_DisplayList.cpp" />
+    <ClCompile Include="Lesson04_2_VBO.cpp" />
+    <ClCompile Include="Lesson04_3_IBO.cpp" />
+    <ClCompile Include="Lesson04_4_PBuffer.cpp" />
+    <ClCompile Include="Lesson04_5_FBO.cpp" />
+    <ClCompile Include="Lesson04_6_12.cpp" />
+    <ClCompile Include="Lesson04_6_PBO.cpp" />
+    <ClCompile Include="Lesson04_6_PBO_1.cpp" />
+    <ClCompile Include="Lesson04_6_PBO_2.cpp" />
+    <ClCompile Include="Lesson04_6_PBO_UNPACK.cpp" />
     <ClCompile Include="openGLBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FrameBufferObject.h" />
+    <ClInclude Include="FreeImage\FreeImage.h" />
     <ClInclude Include="GLContext.h" />
+    <ClInclude Include="glew\eglew.h" />
+    <ClInclude Include="glew\glew.h" />
+    <ClInclude Include="glew\glxew.h" />
+    <ClInclude Include="glew\wglew.h" />
+    <ClInclude Include="Lesson01.h" />
+    <ClInclude Include="Lesson02.h" />
+    <ClInclude Include="Lesson03.h" />
+    <ClInclude Include="Lesson03_Blend.h" />
+    <ClInclude Include="Lesson03_CompressTex.h" />
+    <ClInclude Include="Lesson03_EnvironmentTex.h" />
+    <ClInclude Include="Lesson03_FrameAnim.h" />
+    <ClInclude Include="Lesson03_minMap.h" />
+    <ClInclude Include="Lesson03_Sprite.h" />
+    <ClInclude Include="Lesson03_TexAnim.h" />
+    <ClInclude Include="Lesson03_TexUpdate.h" />
+    <ClInclude Include="Lesson04_1_DisplayList.h" />
+    <ClInclude Include="Lesson04_2_VBO.h" />
+    <ClInclude Include="Lesson04_3_IBO.h" />
+    <ClInclude Include="Lesson04_4_PBuffer.h" />
+    <ClInclude Include="Lesson04_5_FBO.h" />
+    <ClInclude Include="Lesson04_6_12.h" />
+    <ClInclude Include="Lesson04_6_PBO.h" />
+    <ClInclude Include="Lesson04_6_PBO_1.h" />
+    <ClInclude Include="Lesson04_6_PBO_2.h" />
+    <ClInclude Include="Lesson04_6_PBO_UNPACK.h" />
+    <ClInclude Include="PBuffer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

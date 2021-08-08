@@ -13,14 +13,167 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\glew">
+      <UniqueIdentifier>{b634c6bd-6477-4d61-b374-46fcf3849ae1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\FreeImage">
+      <UniqueIdentifier>{d876cf67-ddbd-4240-9aee-cdb666390026}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="openGLBase.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Lesson01.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson02.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson03.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson03_Blend.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson03_CompressTex.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson03_EnvironmentTex.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson03_FrameAnim.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson03_minMap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson03_Sprite.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson03_TexAnim.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson03_TexUpdate.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson04_1_DisplayList.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson04_2_VBO.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson04_3_IBO.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson04_4_PBuffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson04_5_FBO.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson04_6_PBO.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson04_6_PBO_1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson04_6_PBO_2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson04_6_PBO_UNPACK.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Lesson04_6_12.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLContext.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\eglew.h">
+      <Filter>头文件\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\glew.h">
+      <Filter>头文件\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\glxew.h">
+      <Filter>头文件\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\wglew.h">
+      <Filter>头文件\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="FreeImage\FreeImage.h">
+      <Filter>头文件\FreeImage</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBufferObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson01.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson02.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson03.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson03_Blend.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson03_CompressTex.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson03_EnvironmentTex.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson03_FrameAnim.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson03_minMap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson03_Sprite.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson03_TexAnim.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson03_TexUpdate.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson04_1_DisplayList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson04_2_VBO.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson04_3_IBO.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson04_4_PBuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson04_5_FBO.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson04_6_PBO.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PBuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson04_6_PBO_1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson04_6_PBO_2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson04_6_PBO_UNPACK.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lesson04_6_12.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
